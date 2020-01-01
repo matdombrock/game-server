@@ -1,0 +1,19 @@
+{
+  "name": "public-server-example",
+  "version": "1.0.0",
+  "description": "Hosts static files with express",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js",
+    "lift": "nodemon app.js"
+  },
+  "author": "Mathieu Dombrock",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "nodemon": "^2.0.2",
+    "public-ip": "^4.0.0",
+    "sqlite3": "^4.1.1"
+  }
+}

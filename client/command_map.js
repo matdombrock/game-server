@@ -1,0 +1,20 @@
+const server = require('./commands/server')
+const login = require('./commands/login')
+const whoami = require('./commands/whoami')
+module.exports = {
+    server: {
+        description: "setup the server",
+        example: ["server"],
+        command: async(input,state) => {await server(input,state)}
+    },
+    login: {
+        description: "",
+        example: [""],
+        command: async(input,state) => {await login(input,state)}
+    },
+    whoami: {
+        description: "",
+        example: [""],
+        command: async(input,state) => {await whoami(input,state)}
+    }
+}
