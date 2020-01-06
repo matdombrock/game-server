@@ -1,4 +1,4 @@
-const db = require('./db/db.js')
+const db = require('./db/db')
 const crypt = require('../utility/crypt')
 const isLoggedIn = require('../utility/is-logged-in')
 

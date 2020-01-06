@@ -4,7 +4,7 @@ format = html
 type = <output[type]>
 */
 
-const db = require('./db/db.js')
+const db = require('./db/db')
 
 module.exports = async function(req,res){
     let output = {}
