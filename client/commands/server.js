@@ -43,6 +43,7 @@ module.exports = async function server(input,state){
         let req_options = {
             method: 'GET',
             uri: "http://"+state.server.address+"/status",
+            jar: state.cookieJar,
             resolveWithFullResponse: true 
         }
         await rp(req_options)

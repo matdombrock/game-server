@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.7",
     "prompt-sync": "^4.2.0",
     "prompt-sync-history": "^1.0.1",
     "request": "^2.88.0",

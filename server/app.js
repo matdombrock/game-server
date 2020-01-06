@@ -1,12 +1,16 @@
 // server.js
+const init = require('./init')
 const publicIp = require('public-ip');
 const express = require('express');
 const session = require('express-session')
 
 const controllers = {}
+controllers.register = require('./controllers/register')
 controllers.login = require('./controllers/login')
 controllers.whoami = require('./controllers/whoami')
 controllers.status = require('./controllers/status')
+
+init.init()
 
 const app = express();
 const PORT = process.env.PORT = 1337;
@@ -23,7 +27,10 @@ app.get('/', function(req, res){
 app.get('/status', function(req, res){
   controllers.status(req,res)
 })
-app.get('/login', function(req, res){
+app.post('/register', function(req, res){
+  controllers.register(req,res)
+})
+app.post('/login', function(req, res){
   controllers.login(req,res)
 })
 app.get('/whoami', function(req, res){

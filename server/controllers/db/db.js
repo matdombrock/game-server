@@ -1,19 +1,60 @@
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database(':memory:');
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+const db_location = '../../db/test.db'
 
-/* db.serialize(function() { */
-  db.run("CREATE TABLE lorem (info TEXT)");
-    /* var test = db.run("SELECT * FROM lorem")
-    console.log(test) */
-  /* var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-  for (var i = 0; i < 10; i++) {
-      stmt.run("Ipsum " + i);
-  }
-  stmt.finalize();
+function open(){
+  const db = new sqlite3.Database(path.join(__dirname,db_location), sqlite3.OPEN_READWRITE, (err) => {
+    if (err) {
+      console.error(err.message);
+    }
+  });
+  db.on("error", function(error) {
+      console.log("Getting an error : ", error);
+  }); 
+  return db
+}
 
-  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-      console.log(row.id + ": " + row.info);
-  }); */
-/* }); */
 
-db.close();
+// close the database connection
+function close(db){
+  db.close((err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+  });
+}
+
+
+
+
+exports.run = function(sql){
+  console.log("RUNNING",sql)
+  const db = open()
+  return new Promise(function(resolve,reject){
+    db.run(sql, function(err){
+      if(err){
+        console.warn("WARNING:", err)
+        resolve(false)
+      }else{
+        resolve(true)
+      }
+    })
+    close(db)
+  })
+  
+  
+}
+exports.each = async function(sql){
+  const db = open()
+  return new Promise(function(resolve,reject){
+    db.serialize(() => {
+      db.all(sql, [], (err, rows) => {
+        if (err) {
+          throw err
+        }
+        resolve(rows)
+      })
+    })
+    close(db)
+  }) 
+}
